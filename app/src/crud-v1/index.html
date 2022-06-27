@@ -1,0 +1,77 @@
+
+   <form>
+        <input name="criarPost" type="text" placeholder="Digite seu post">
+        <button type="submit">Postar</button>
+
+    </form>
+
+  
+    <ul class="listarPosts">
+    </ul>   
+       
+
+<script>
+   
+    console.log("Bora estudar");
+    console.log("JS na veia raiz");
+    //[Base de dados] Modelo
+    const miniRedSocial = {
+        usuarios : [
+            {
+                usernames: 'mathrufino'
+            },
+            
+        ],
+        posts:[
+            {   
+                id: 1,
+                owner: 'mathrufino',
+                content: 'page'         
+            }
+        ],
+        //Criar array objeto[]// fake db
+        criaPost(dados, htmlOnly = false) {
+            if(!htmlOnly){
+                miniRedSocial.posts.push({
+                    id: miniRedSocial.posts.length + 1,
+                    owner: dados.owner,
+                    content: dados.content
+                });
+   
+            }
+            //Criar post no HTML
+             const $listaPostagem = document.querySelector('.listarPosts');
+             $listaPostagem.insertAdjacentHTML('afterbegin',`<li>${dados.content}</li>`);  
+            }
+   
+    
+    }
+   
+
+
+    //[Código front-end web] manipular HTML
+    const $meuForm = document.querySelector('form')
+    console.log($meuForm);
+    
+    //CRUD Read:
+    miniRedSocial.posts.forEach(({owner, content}) =>{
+        miniRedSocial.criaPost({ owner: owner, content: content}, true);
+    }) 
+
+
+
+    //CRUD Create: 
+    $meuForm.addEventListener('submit',function CriarPostController(infosEvent) {
+        infosEvent.preventDefault()
+        const $campoCriarPost = document.querySelector('input[name="criarPost"]');
+        miniRedSocial.criaPost({ owner: 'mathrufino', content: `${$campoCriarPost.value}` }); 
+        $campoCriarPost.value = '';
+             
+    })
+
+    //Linguagem pura 
+    // - Criar variáveis 
+    // - Sincronizar variáveis
+    // - Atualizar variáveis
+    // Document é minha estrutura html
+</script>
